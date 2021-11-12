@@ -28,5 +28,48 @@ SELECT * FROM Books_details WHERE Book_price IN(495,595,500);
 SELECT * FROM Books_details WHERE Book_price Between 500 AND 1000;
 SELECT Book_price AS Book_amount FROM Books_details WHERE Book_amount>500;
 SELECT B.Book_price AS Book_amount FROM Books_details B;
+SELECT * FROM Books_details WHERE Book_name LIKE '%Swami';
+SELECT * FROM Books_details WHERE  Book_name LIKE 'THE%';
+SELECT * FROM Books_details WHERE  Book_name LIKE '%of%';
+SELECT * FROM Books_details WHERE  Book_name LIKE '_h%';
+SELECT CURDATE();
+SELECT CURTIME();
+SELECT NOW();
+SELECT DATE(NOW());
+SELECT TIME(NOW());
+SELECT DAYOFMONTH(NOW);
+SELECT MONTH(NOW());
+SELECT YEAR(NOW());
+SELECT WEEK(NOW());
+SELECT DAYNAME(NOW());
+SELECT DAYOFWEEK(NOW());
+SELECT DAYOFYEAR(NOW());
+SELECT DAYOFMONTH('2021-11-10 10:56:01') AS Extracted_Day;
+SELECT MONTH('2021-11-10 10:56:01') AS Extracted_Month;
+SELECT Year('2021-11-10 10:56:01') AS Extracted_Year;
+SELECT WEEK('2021-11-10 10:56:01') AS Extracted_Week;
+SELECT DATE('2021-11-10 10:56:01') AS Extracted_DATE;
+SELECT TIME('2021-11-10 10:56:01') AS Extracted_Time;
+SELECT COUNT(*) ID FROM Books_details;
+SELECT MAX(Book_price) FROM Books_details;
+SELECT MIN(Book_price) Price FROM Books_details;
+SELECT AVG(Book_price) AS Price FROM Books_details;
+SELECT SUM(Book_id) FROM Books_details;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
