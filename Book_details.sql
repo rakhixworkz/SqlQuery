@@ -78,6 +78,7 @@ SELECT Book_volume,count(Book_name) AS No_of_books_in_volume FROM Books_details 
 SELECT Book_volume,count(Book_name) AS No_of_books_in_volume FROM Books_details GROUP BY Book_volume HAVING No_of_books_in_volume>1;
 -- ROLLBACK can only be used with DML commands(INSERT,UPDATE,DELETE)
 SET AUTOCOMMIT=0;
+SELECT * FROM Books_details;
 DELETE FROM Books_details WHERE BOOK_id=8;
 ROLLBACK;
 DELETE FROM Books_details WHERE BOOK_id=7;
@@ -86,14 +87,23 @@ DELETE FROM Books_details WHERE BOOK_id=8;
 SAVEPOINT T2;
 ROLLBACK;
 
-
-
-
-
-
-
-
-
+SELECT MAX(Book_price) FROM Books_details;
+-- Get the second highest cost of the book from your table
+SELECT MAX(Book_price) AS Second_Highest_cost_of_Book FROM Books_details 
+WHERE Book_price < (SELECT MAX(Book_price) FROM Books_details);
+-- Get the details of book which has second highest cost
+SELECT * FROM Books_details
+WHERE Book_price=(SELECT MAX(Book_price) AS Second_Highest_cost_of_Book FROM Books_details 
+WHERE Book_price < (SELECT MAX(Book_price) FROM Books_details));
+-- Get the details of the book which has cost higher than average cost
+SELECT * FROM Books_details WHERE Book_price IN(SELECT Book_price from Books_details
+WHERE Book_price<(SELECT AVG(Book_price) FROM Books_details));
+-- Get the details of the book by book name which has published year greater than 2005
+SELECT * FROM Books_details
+WHERE Book_name IN(SELECT Book_name from Books_details
+GROUP BY Publish_year
+HAVING Publish_year>2005);
+-- Employee Database
 CREATE DATABASE Employee;
 USE Employee;
 CREATE TABLE Employee_details(
@@ -104,6 +114,22 @@ Employee_addrs varchar(30),
 Employeee_phno varchar(10),
 PRIMARY KEY(Employee_id));
 SELECT * FROM Employee_details;
+INSERT INTO Employee_details VALUE(1,'rakhi',1000000,'Bihar','9865743430'),(2,'Bhavana',200000,'Shimoga','78964543'),(3,'Anusha',400000,'tumkur','79876549'),(4,'Pari',5000000,'Hubli','678906544'),(5,'Rachita',400000,'Bihar','986543279'),(6,'Rehana',400000,'Hubli','78654329');
+SELECT distinct Employee_addrs FROM Employee_details;
+ALTER table Employee_details ADD COLUMN No_Of_Hours INT;
+UPDATE Employee_details SET No_Of_Hours=8 WHERE Employee_id=1; 
+ALTER TABLE Books_details DROP COLUMN No_Of_Pages;
+DROP DATABASE Employee;
+TRUNCATE Employee_details;
+SELECT MAX(Employee_salary) AS MAXIMUM_SALARY from EMPLOYEE_details;
+SELECT * FROM Employee_details WHERE Employee_salary=(SELECT MAX(Employee_salary) AS MAXIMUM_SALARY from Employee_details);
+SELECT MIN(Employee_salary) AS MINIMUM_SALARY from EMPLOYEE_details;
+SELECT * FROM Employee_details WHERE Employee_salary=(SELECT MIN(Employee_salary) AS MINIMUM_SALARY from Employee_details);
+SELECT AVG(Employee_salary) AS AVERAGE_SALARY from EMPLOYEE_details;
+SELECT Employee_addrs FROM Employee_details GROUP BY Employee_addrs ORDER BY Employee_salary;
+DELETE FROM Employee_details WHERE Employee_addrs='tumkur';
+ROLLBACK;
+
 
 
 
